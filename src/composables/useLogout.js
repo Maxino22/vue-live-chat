@@ -9,7 +9,6 @@ const logout = async () => {
     await projectAuth.signOut();
   } catch (err) {
     error.value = err.message;
-    console.log(err.message);
   }
 };
 

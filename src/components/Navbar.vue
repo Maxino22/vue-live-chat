@@ -19,7 +19,6 @@ const user = getUser();
 async function handleClick() {
   await logout();
   if (!error.value) {
-    console.log("user Logged out");
   }
 }
 </script>
