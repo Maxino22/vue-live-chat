@@ -5,9 +5,17 @@ import Welcome from "../views/Welcome.vue";
 //auth guard
 const requireAuth = (to, from, next) => {
   let user = projectAuth.currentUser;
-  console.log("cuurent user in auth guard is ", user);
   if (!user) {
     next({ name: "welcome" });
+  } else {
+    next();
+  }
+};
+
+const requireNoAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+  if (user) {
+    next({ name: "Chatroom" });
   } else {
     next();
   }
@@ -16,7 +24,12 @@ const requireAuth = (to, from, next) => {
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: "/", name: "welcome", component: Welcome },
+    {
+      path: "/",
+      name: "welcome",
+      component: Welcome,
+      beforeEnter: requireNoAuth,
+    },
     {
       path: "/chatroom",
       name: "Chatroom",
